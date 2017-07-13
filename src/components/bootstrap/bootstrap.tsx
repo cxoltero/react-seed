@@ -13,9 +13,7 @@ interface BootstrapPropsInterface {
 }
 
 export default class Bootstrap extends React.Component<BootstrapPropsInterface, BootstrapStateInterface> {
-
-  render() {
-
+  public render() {
     return (
       <div className='container-fluid'>
         <section className='row'>
