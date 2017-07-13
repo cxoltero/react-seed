@@ -12,26 +12,33 @@ interface ContactInfoInterface {
 
 interface ContactInfoPropsInterface {
   contact: ContactInfoInterface;
+  isActive: boolean;
+  isExpanded: boolean;,
+  id: number;
 }
 
-function buildName(firstName: string, middleName: string, lastName: string) {
+function buildName(firstName: string, middleName: string, lastName: string): string {
   let _middleName: string = middleName ? ` ${middleName}` : '';
   let _lastName: string = lastName ? ` ${lastName}` : '';
 
   return `${firstName}${_middleName}${_lastName}`;
-}
+};
 
 // tslint:disable-next-line
-const ContactInfo: React.SFC<ContactInfoPropsInterface> = ({contact}) => {
+const ContactInfo: React.SFC<ContactInfoPropsInterface> = ({contact, isActive, isExpanded, id}) => {
   const {firstName, middleName, email, lastName, phone, image} = contact;
   const userIcon = <i className='fa fa-user-circle-o fa-4x mx-auto' aria-hidden='true'></i>;
 
+  function handleClick():void {
+    console.log(id, '<<<<<');
+  }
+
   return (
-    <div className='list-group-item contact-info'>
-      <div className='col-4'>
+    <div className={`list-group-item contact-info ${isActive ? 'active-contact' : ''}`} onClick={handleClick}>
+      <div className={`col-4 ${isExpanded ? 'col-12' : ''}`}>
         {image ? <img src={image} alt={firstName} className='img-responsive img-circle' /> : userIcon}
       </div>
-      <div className='col-8'>
+      <div className={`col-8 ${isExpanded ? 'col-12' : ''}`}>
         <h2 className='name'>{buildName(firstName, middleName, lastName)}</h2>
         <span className='fa fa-phone text-muted c-info' data-toggle='tooltip' title={phone}></span>
         <span className='visible-xs'> <span className='text-muted phone'>{phone}</span></span>
