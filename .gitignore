@@ -32,5 +32,4 @@ node_modules
 # production files
 build
 
-
 test-report.xml

@@ -30,71 +30,12 @@ export default class Home extends React.Component<HomePropsInterface, HomeStateI
     super(props);
     // Set initial state
     this.state = {
-      contacts: [
-        {
-          firstName: 'jame',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'John',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'asdf',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'Jowerwerhn',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'as',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'wer',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'asdf',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'Jweraesdfohn',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        },
-        {
-          firstName: 'davd',
-          lastName: 'Doe',
-          middleName: 'E',
-          phone: '444-333-4444',
-          email: 'jDoe@email.com'
-        }
-      ],
+      contacts: [{
+        firstName: 'Joh',
+        middleName: 'a',
+        lastName: 'gradie',
+        email: 'email@email.com'
+      }],
       currentContactIndex: 0,
       addingContact: false,
     }
@@ -107,7 +48,15 @@ export default class Home extends React.Component<HomePropsInterface, HomeStateI
     }
   }
 
-  private addContact(val: string): void {
+  private addContact(contact: {}): void {
+    contact.id = this.state.contacts.length;
+    const newContacts: Array<ContactInterface> = [...this.state.contacts, contact];
+
+    this.setState({
+      contacts: newContacts
+    });
+    this.setActiveContact(contact.id);
+    this.cancel();
   }
 
   private handleRemove(id: string): void {
@@ -125,21 +74,35 @@ export default class Home extends React.Component<HomePropsInterface, HomeStateI
     });
   }
 
+  private selectContact(index: number) {
+    this.setActiveContact(index)
+  }
+
+  private cancel() {
+    this.setState({
+      addingContact: false
+    });
+  }
+
   render(){
     return (
       <div className='home'>
-        <div className="col col-md-6 col-lg-4 text-center d-inline-block">
+        <div className="col col-md-6 col-lg-5 text-center d-inline-block">
           <button onClick={this.handleAddButton.bind(this)} className="btn btn-success addContactBtn"><i className="fa fa-user-circle"></i> Add Contact</button>
           <div className="card card-inverse">
             <div className="card-block">
-              <ContactList contacts={this.state.contacts} activeElementIndex={this.state.currentContactIndex}/>
+              <ContactList
+                contacts={this.state.contacts}
+                activeElementIndex={this.state.currentContactIndex}
+                clickHandler={this.selectContact.bind(this)}
+              />
             </div>
           </div>
         </div>
-        <div className="col col-md-6 col-lg-8 text-center d-inline-block">
+        <div className="col col-md-6 col-lg-7 text-center d-inline-block hidden-sm-down">
           {this.state.addingContact ?
-            <ContactListForm /> :
-            <ContactInfo  contact={this.state.contacts[0]} isActive={false} isExpanded={true}/>
+            <ContactListForm onCancel={this.cancel.bind(this)} onAdd={this.addContact.bind(this)}/> :
+            <ContactInfo  contact={this.state.contacts[this.state.currentContactIndex]} isActive={false} isExpanded={true}/>
           }
         </div>
       </div>

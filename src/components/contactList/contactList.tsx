@@ -15,6 +15,7 @@ interface ContactListInterface {
 interface ContactListPropsInterface {
   contacts: ContactListInterface[];
   activeElementIndex: number;
+  clickHandler: Function;
 }
 
 // TODO, naming convention for variables to be exported TS
@@ -23,7 +24,14 @@ const ContactList: React.SFC<ContactListPropsInterface> = (props) => {
   return (
     <div className='list-group contact-list'>
       {props.contacts.map((contact, index) => {
-        return <ContactInfo  key={index} id={index} contact={contact} isActive={index === props.activeElementIndex} isExpanded={false}/>;
+        return <ContactInfo
+          key={index}
+          id={index}
+          contact={contact}
+          isActive={index === props.activeElementIndex}
+          isExpanded={false}
+          clickHandler={props.clickHandler}
+        />;
       })}
     </div>
   );

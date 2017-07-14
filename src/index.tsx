@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Bootstrap from './components/bootstrap/bootstrap';
 import Home from './views/home/home';
+import About from './views/about/about';
 
 render(
   <Router>
@@ -13,7 +14,7 @@ render(
       <Switch>
         <Route exact path='/' component={Home as any}/>
         <Route exact path='/home' component={Home as any}/>
-        {/*<Route path='/new' component={newContact}/>*/}
+        <Route path='/about' component={About as any}/>
       </Switch>
     </Bootstrap>
   </Router>,

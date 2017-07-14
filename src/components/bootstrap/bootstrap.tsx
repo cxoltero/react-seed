@@ -13,6 +13,11 @@ interface BootstrapPropsInterface {
 }
 
 export default class Bootstrap extends React.Component<BootstrapPropsInterface, BootstrapStateInterface> {
+  constructor(props) {
+    super(props);
+    console.log(props, '########');
+  }
+
   public render() {
     return (
       <div className='container-fluid'>

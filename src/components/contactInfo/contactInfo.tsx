@@ -13,8 +13,9 @@ interface ContactInfoInterface {
 interface ContactInfoPropsInterface {
   contact: ContactInfoInterface;
   isActive: boolean;
-  isExpanded: boolean;,
+  isExpanded: boolean;
   id: number;
+  clickHandler: Function;
 }
 
 function buildName(firstName: string, middleName: string, lastName: string): string {
@@ -25,12 +26,12 @@ function buildName(firstName: string, middleName: string, lastName: string): str
 };
 
 // tslint:disable-next-line
-const ContactInfo: React.SFC<ContactInfoPropsInterface> = ({contact, isActive, isExpanded, id}) => {
+const ContactInfo: React.SFC<ContactInfoPropsInterface> = ({contact, isActive, isExpanded, id, clickHandler}) => {
   const {firstName, middleName, email, lastName, phone, image} = contact;
   const userIcon = <i className='fa fa-user-circle-o fa-4x mx-auto' aria-hidden='true'></i>;
 
   function handleClick():void {
-    console.log(id, '<<<<<');
+    clickHandler(id);
   }
 
   return (
